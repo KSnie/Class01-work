@@ -8,18 +8,24 @@ body {
 
 nav {
     background-color: black;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 100%;
+    margin-bottom: 20px;
+
 }
 
 nav h3 {
     color: white;
+    text-align: center;
     font-size: 30px;    
 }
 
 .content {
+    margin-top: 150px;
     text-align: center;
 }
 
