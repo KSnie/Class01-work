@@ -6,7 +6,9 @@ function addItem() {
     var amount = amountInput.value;
     var accessoryTable = document.getElementById("accessory-table");
     var price = parseFloat(selectedAccessoryValue)
-    var totalPrice = document.getElementById("price");
+    var Price = document.getElementById("price");
+    var totalVat = document.getElementById("total-vat");
+    var totalPrice = document.getElementById("total-price");
     var productTable = document.getElementById("product-list");
 
     var row = productTable.insertRow(-1);
@@ -14,12 +16,13 @@ function addItem() {
     var amountCell = row.insertCell(1);
     var priceCell = row.insertCell(2);
     
-    var vat = 0.07
-    console.log(totalPrice);
+    var _vat = 0.07
 
     accessoryCell.innerHTML = selectedAccessory;
     amountCell.innerHTML = amount;
     priceCell.innerHTML = "$" + (price * amount);
     
-    totalPrice.innerHTML = "$" + (parseFloat(totalPrice.innerHTML.substring(1)) + (price * amount));
+    Price.innerHTML = "$" + (parseFloat(Price.innerHTML.substring(1)) + (price * amount));
+    totalVat.innerHTML = "$" + (parseFloat(totalVat.innerHTML.substring(1)) + ((price * amount)*_vat)).toFixed(2);
+    totalPrice.innerHTML = "$" + (parseFloat(totalPrice.innerHTML.substring(1)) + ((price * amount) + (price * amount)*_vat)).toFixed(2);
 }
