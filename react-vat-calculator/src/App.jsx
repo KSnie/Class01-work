@@ -1,33 +1,43 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [price, setPrice] = useState(0)
+  const [discount, setDiscount] = useState(0)
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='container'>
+        <h1> Vat Calculator </h1>
+        <div className='vat-calculator'>
+
+          <div className='input-session'>
+            <h3>Price</h3>
+            <input placeholder='Enter Your Price' onChange={(e) => setPrice(e.target.value)}/>
+          </div>
+          <br />
+          <div className='input-session'>
+            <h3>Discount</h3>
+            <input placeholder='Enter Your Discount' onChange={(e) => setDiscount(e.target.value)}/>
+          </div>
+          <br />
+          <br />
+          <div className='Summary'>
+            <h4>Gross price</h4>
+            <h5>{price - discount}</h5>
+          </div>
+
+          <div className='Summary'>
+            <h4>VAT</h4>
+            <h5>{((price - discount) * 0.07).toFixed(2)}</h5>
+          </div>
+
+          <div className='Summary'>
+            <h4>Total</h4>
+            <h5>{(price - discount) - ((price - discount) * 0.07).toFixed(2)}</h5>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
