@@ -13,12 +13,12 @@ function App() {
 
           <div className='input-session'>
             <h3>Price</h3>
-            <input placeholder='Enter Your Price' onChange={(e) => setPrice(e.target.value)}/>
+            <input placeholder='Enter Your Price.' onChange={(e) => setPrice(e.target.value)}/>
           </div>
           <br />
           <div className='input-session'>
             <h3>Discount</h3>
-            <input placeholder='Enter Your Discount' onChange={(e) => setDiscount(e.target.value)}/>
+            <input placeholder='Enter Your Discount.' onChange={(e) => setDiscount(e.target.value)}/>
           </div>
           <br />
           <br />
