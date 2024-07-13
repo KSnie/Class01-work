@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- Bootstrap core CSS -->
+  <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: rgb(241, 241, 241);
+    }
+
+    .Header {
+      background-image: url('./img/Bg.jpg'); 
+      color: #ffffff;
+    }
+    
+    .Content {
+      border: 1px solid rgb(199, 199, 199);
+      border-radius: 25px;
+      padding-top: 15px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .row {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+    
+    .Content:hover {
+      background-color: rgb(0, 0, 0);
+      color: #ffffff;
+    }
+
+    .image-content {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="jumbotron text-center Header">
+    <h1>My First Bootstrap Page</h1>
+    <p>Resize this responsive page to see the effect!</p>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 Content">
+        <h3>Column 1</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia voluptatum, nesciunt laudantium nam modi perferendis odio fugiat consequuntur in aliquid ratione. Qui placeat alias, nihil facere quisquam expedita rem modi!</p>
+        <img src="./img/Bg.jpg" class="img-circle image-content" alt="Cinque Terre">
+      </div>
+      <div class="col-sm-2 Content">
+        <h3>Column 2</h3>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae, doloribus! Soluta excepturi odio asperiores repudiandae animi magni omnis vero quasi, similique, tenetur corrupti sit dolores enim explicabo accusamus? Nostrum, beatae.</p>
+        <img src="./img/Bg.jpg" class="img-circle image-content" alt="Cinque Terre">
+      </div>
+      <div class="col-sm-2 Content">
+        <h3>Column 3</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, deleniti commodi. Tempore dolore iusto cumque saepe similique officiis eveniet sint, consequuntur nobis architecto obcaecati quasi esse reprehenderit voluptas eos vero.</p>
+        <img src="./img/Bg.jpg" class="img-circle image-content" alt="Cinque Terre">
+      </div>
+      <div class="col-sm-2 Content">
+        <h3>Column 4</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, deleniti commodi. Tempore dolore iusto cumque saepe similique officiis eveniet sint, consequuntur nobis architecto obcaecati quasi esse reprehenderit voluptas eos vero.</p>
+        <img src="./img/Bg.jpg" class="img-circle image-content" alt="Cinque Terre">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

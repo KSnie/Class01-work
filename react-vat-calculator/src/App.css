@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255);
+}
+
+.container {
+  color: black;
+}
+
+.vat-calculator {
+  text-align: left;
+}
+
+.input-session {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-session input{
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  width: 200px;
+  height: 30px;
+  background-color: rgb(0, 0, 0);
+  padding-left: 15px;
+}
+
+.Summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bolder;
+}
