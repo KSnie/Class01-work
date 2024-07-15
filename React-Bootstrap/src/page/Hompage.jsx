@@ -1,6 +1,6 @@
-import Hm_Header from "./Hm_Header"
+import Hm_Header from "../component/HomePage/Hm_Header"
 import { useState } from 'react'
-import Hm_Content from './Hm_Content'
+import {Hm_Content,Hm_footer} from '../component/HomePage/Hm_Content'
 
 const Hompage = () => {
 
@@ -17,6 +17,8 @@ const Hompage = () => {
             </div>
 
             <Hm_Content />
+
+            <Hm_footer />
 
         </div>
     )

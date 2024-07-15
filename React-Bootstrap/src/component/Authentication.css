@@ -1,16 +1,19 @@
 .button-log {
-    color: rgb(104, 85, 224);
+    color: #09203f;
     background-color: rgba(255, 255, 255, 1);
-    border: 1px solid rgba(104, 85, 224, 1);
+    border: 1px solid #537895;
 }
 
 .button-reg {
     color: white;
-    background-color: rgba(104, 85, 224, 1);
+    /* background-color: rgba(104, 85, 224, 1); */
+    border: 1px solid #537895;
+    background-image: linear-gradient(135deg, #09203f 10%, #537895 100%);
 }
 
 .button-reg:hover,.button-log:hover {
     color: white;
-    box-shadow: 0 0 20px rgba(104, 85, 224, 0.6);
-    background-color: rgba(104, 85, 224, 1);
+    box-shadow: 0 0 20px rgba(11, 0, 82, 0.6);
+    /* background-color: rgba(104, 85, 224, 1); */
+    background-image: linear-gradient(135deg, #09203f 10%, #537895 100%);
   }
