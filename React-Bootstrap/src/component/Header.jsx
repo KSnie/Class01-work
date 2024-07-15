@@ -19,7 +19,7 @@ const Header = () => {
                     <Navbar.Brand href="#">
                         <img
                             alt=""
-                            src="/logo.svg" // Adjust the path to your actual logo
+                            src="/PageImage/logo.svg" // Adjust the path to your actual logo
                             width="30"
                             height="30"
                             className="d-inline-block align-top"

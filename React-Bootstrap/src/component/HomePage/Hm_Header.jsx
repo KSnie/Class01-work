@@ -8,7 +8,7 @@ const Hm_Header = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="carousel01.png"
+                    src="/PageImage/carousel01.png"
                     alt="First slide"
                 />
                 <Carousel.Caption>
@@ -21,7 +21,7 @@ const Hm_Header = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="carousel02.png"
+                    src="/PageImage/carousel02.png"
                     alt="Second slide"
                 />
                 <Carousel.Caption>
@@ -34,7 +34,7 @@ const Hm_Header = () => {
             <Carousel.Item>
                 <img
                     className="d-block w-100"
-                    src="carousel03.png"
+                    src="/PageImage/carousel03.png"
                     alt="Third slide"
                 />
                 <Carousel.Caption>
