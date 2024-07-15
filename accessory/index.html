@@ -8,24 +8,31 @@
 </head>
 <body>
     <h1>Car Accessories</h1>
- 
+
     <h3>Add Accessory</h3>
-    <select id="accessory-select">
-        <option value="10">Car Cover</option>
-        <option value="20">Seat Covers</option>
-        <option value="30">Phone Holder</option>
-        <!-- Add more options here -->
-    </select>
-    <input type="number" id="amount-input" min="1" value="1">
-    <button class="add-button" onclick="addItem()">Add</button>
- 
- 
+    <button id="openModal">Add Accessory</button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Select Accessory</h2>
+            <select id="modal-accessory-select">
+                <option value="10">Car Cover</option>
+                <option value="20">Seat Covers</option>
+                <option value="30">Phone Holder</option>
+            </select>
+            <input type="number" id="modal-amount-input" min="1" value="1">
+            <button id="add-modal-button">Add</button>
+        </div>
+    </div>
+
     <h2>Product List</h2>
     <table id="product-list">
         <tr>
             <th>Accessory</th>
             <th>Amount</th>
             <th>Price</th>
+            <th>Action</th>
         </tr>
     </table>
     
