@@ -5,3 +5,12 @@
     { "id": 4, "name": "Headphones", "price": 40 },
     { "id": 5, "name": "Speakers", "price": 50 }
   ]
+
+
+  [
+    { "id": 1, "Item": "Mouse", "Price": 10 },
+    { "id": 2, "Item": "Keyboard", "Price": 20 },
+    { "id": 3, "Item": "Monitor", "Price": 30 },
+    { "id": 4, "Item": "Headphones", "Price": 40 },
+    { "id": 5, "Item": "Speakers", "Price": 50 }
+  ]
