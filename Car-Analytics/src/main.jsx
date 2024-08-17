@@ -1,12 +1,39 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {
+  createHashRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+  Outlet
+} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import App from './App.jsx'
+import NavbarComponent from './components/Navbar';
+import Dashboard from './pages/Dashboard';
+import Highlighted from './pages/Highlighted';
 import './App.css';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+function Root() {
+  return (
+    <div>
+      <NavbarComponent />
+      <Outlet /> {/* This will render the child routes */}
+    </div>
+  );
+}
+
+const router = createHashRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route index element={<Dashboard />} />
+      <Route path="/highlighted" element={<Highlighted />} />
+    </Route>
+  )
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
