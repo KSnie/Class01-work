@@ -18,17 +18,29 @@ function Root() {
   return (
     <div>
       <NavbarComponent />
-      <Outlet /> {/* This will render the child routes */}
+      <Outlet />
     </div>
   );
 }
 
 const router = createHashRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />}>
-      <Route index element={<Dashboard />} />
-      <Route path="/highlighted" element={<Highlighted />} />
-    </Route>
+    // <Route path="/" element={<Dashboard />}>
+    //   <Route index element={<Dashboard />} />
+    //   <Route path="/highlighted" element={<Highlighted />} />
+    // </Route>
+
+          
+      <Route path="/" element={<Root />}> 
+        <Route
+          path="/"
+          element={<Dashboard />}
+        />   
+        <Route
+          path="/highlighted"
+          element={<Highlighted />}
+        /> 
+      </Route>
   )
 );
 
