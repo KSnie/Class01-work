@@ -57,7 +57,7 @@ This software uses the following open source packages:
 - [react-icons](https://react-icons.github.io/react-icons/)
 - [react-router](https://reactrouter.com/en/main)
 - [vitejs](https://vitejs.dev/)
-- [Recharts](https://recharts.org/en-US/)
+- [react-chartjs](https://www.chartjs.org/docs/latest/)
 
 ## Related
 
