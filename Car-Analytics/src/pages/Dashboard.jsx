@@ -114,7 +114,7 @@ const Dashboard = () => {
     if (brandA === brandB) {
       return a.Model.localeCompare(b.Model);
     }
-    return brandA.localeCompare(b.Brand);
+    return brandA.localeCompare(brandB);
   });
 
   // Data for Pie Chart
@@ -153,18 +153,26 @@ const Dashboard = () => {
   const sortedCars = useMemo(() => {
     const sortedData = [...cars];
     sortedData.sort((a, b) => {
-      const priceA = parseInt(a.Prc.replace(/,/g, ''), 10);
-      const priceB = parseInt(b.Prc.replace(/,/g, ''), 10);
-      if (priceA < priceB) {
-        return sortConfigCars.direction === 'asc' ? -1 : 1;
+      if (sortConfigCars.key === 'Brand') {
+        const brandA = brands[a.MkID] || '';
+        const brandB = brands[b.MkID] || '';
+        return sortConfigCars.direction === 'asc'
+          ? brandA.localeCompare(brandB)
+          : brandB.localeCompare(brandA);
+      } else {
+        const priceA = parseInt(a.Prc.replace(/,/g, ''), 10);
+        const priceB = parseInt(b.Prc.replace(/,/g, ''), 10);
+        if (priceA < priceB) {
+          return sortConfigCars.direction === 'asc' ? -1 : 1;
+        }
+        if (priceA > priceB) {
+          return sortConfigCars.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
       }
-      if (priceA > priceB) {
-        return sortConfigCars.direction === 'asc' ? 1 : -1;
-      }
-      return 0;
     });
     return sortedData;
-  }, [cars, sortConfigCars]);
+  }, [cars, sortConfigCars, brands]);
 
   const requestSortCars = (key) => {
     let direction = 'asc';
@@ -246,17 +254,22 @@ const Dashboard = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Brand</th>
+                <th>
+                  Brand
+                  <button className="Sort-btn" onClick={() => requestSortModels('Brand')}>
+                    <FaSort />
+                  </button>
+                </th>
                 <th>Model</th>
                 <th>
                   Amount
-                  <button className = "Sort-btn" onClick={() => requestSortModels('Amount')}>
+                  <button className="Sort-btn" onClick={() => requestSortModels('Amount')}>
                     <FaSort />
                   </button>
                 </th>
                 <th>
                   Total Price (Baht)
-                  <button className = "Sort-btn" onClick={() => requestSortModels('TotalPrice')}>
+                  <button className="Sort-btn" onClick={() => requestSortModels('TotalPrice')}>
                     <FaSort />
                   </button>
                 </th>
@@ -283,12 +296,17 @@ const Dashboard = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Brand</th>
+                <th>
+                  Brand
+                  <button className="Sort-btn" onClick={() => requestSortCars('Brand')}>
+                    <FaSort />
+                  </button>
+                </th>
                 <th>Model</th>
                 <th>Name</th>
                 <th>
                   Price In Baht
-                  <button className = "Sort-btn" onClick={() => requestSortCars('Prc')}>
+                  <button className="Sort-btn" onClick={() => requestSortCars('Prc')}>
                     <FaSort />
                   </button>
                 </th>
