@@ -24,13 +24,7 @@ function Root() {
 }
 
 const router = createHashRouter(
-  createRoutesFromElements(
-    // <Route path="/" element={<Dashboard />}>
-    //   <Route index element={<Dashboard />} />
-    //   <Route path="/highlighted" element={<Highlighted />} />
-    // </Route>
-
-          
+  createRoutesFromElements(          
       <Route path="/" element={<Root />}> 
         <Route
           path="/"

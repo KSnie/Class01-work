@@ -1,36 +1,46 @@
 .Custom-buttom {
-    /* border: none; */
-    font-size: larger;
+  font-size: larger;
+  /* border: none; If border styling is needed, uncomment this */
 }
 
 .card-custom {
-  height: 380px; /* Adjust as needed */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+height: 380px; /* Adjust as needed */
+overflow: hidden;
+display: flex;
+flex-direction: column;
 }
 
 .card-custom .card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Pushes content to the top and bottom */
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between; /* Pushes content to the top and bottom */
 }
 
 .card-img-custom {
-  width: 100%;
-  height: 200px; /* Adjust the height as needed */
-  object-fit: cover; /* Ensures the image covers the area without distortion */
+width: 100%;
+height: 200px; /* Adjust the height as needed */
+object-fit: cover; /* Ensures the image covers the area without distortion */
 }
 
 .modal-90w {
-  max-width: 90% !important;
+max-width: 90% !important;
 }
 
 .table-responsive-2 {
-    display: block;
-    max-height: 700px; /* Adjust this value as needed */
-    overflow-y: auto; /* Enables vertical scrolling */
-    /* margin-top: 100px; */
-    margin-bottom: 50px;
+  display: block;
+  max-height: 700px; /* Adjust this value as needed */
+  overflow-y: auto; /* Enables vertical scrolling */
+  margin-bottom: 50px; /* Adjust this value as needed */
+}
+
+/* Ensures the table is responsive on small screens */
+.table-responsive-2 table {
+width: 100%;
+min-width: 600px; /* Prevents the table from shrinking too much */
+}
+
+/* Limits image width in the table to prevent overflow */
+.table-responsive-2 td img {
+max-width: 100px; /* Adjust as needed */
 }

@@ -123,54 +123,54 @@ const Highlighted = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <InputGroup className=' my-2'>
+        <InputGroup className='my-2'>
           <Form.Control
             placeholder="Search cars by brand"
             aria-label="Search"
-            value={searchQuery} // Bind search query state
-            onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Button variant="outline-secondary"><FaSearch /></Button>
         </InputGroup>
-          <div className="table-responsive-2">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th className='text-center'>IMG</th>
-                  <th>Brand</th>
-                  <th>Model</th>
-                  <th>PageViews</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th className='text-center'>ADD</th>
-                </tr>
-              </thead>
-                <tbody>
-                  {filteredCars.map(car => { // Use sorted filtered cars
-                    const isAlreadyAdded = selectedItems.some(item => item.Cid === car.Cid);
-                    return (
-                      <tr key={car.Cid}>
-                        <td className='text-center'><img src={car.Img100} alt="" /></td>
-                        <td>{brands[car.MkID] || 'Unknown'}</td>
-                        <td>{car.Model}</td>
-                        <td>{car.PageViews}</td>
-                        <td>{car.NameMMT}</td>
-                        <td>{car.Prc + " " + car.Currency}</td>
-                        <td className='text-center'>
-                          <Button 
-                            variant={isAlreadyAdded ? "danger" : "success"} 
-                            onClick={() => handleAddCar(car)} 
-                            disabled={isAlreadyAdded}
-                          >
-                            {isAlreadyAdded ? "Already" : "ADD"}
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-            </Table>
-          </div>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th className='text-center'>IMG</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>PageViews</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th className='text-center'>ADD</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCars.map(car => {
+                const isAlreadyAdded = selectedItems.some(item => item.Cid === car.Cid);
+                return (
+                  <tr key={car.Cid}>
+                    <td className='text-center'><img src={car.Img100} alt="" /></td>
+                    <td>{brands[car.MkID] || 'Unknown'}</td>
+                    <td>{car.Model}</td>
+                    <td>{car.PageViews}</td>
+                    <td>{car.NameMMT}</td>
+                    <td>{car.Prc + " " + car.Currency}</td>
+                    <td className='text-center'>
+                      <Button 
+                        variant={isAlreadyAdded ? "danger" : "success"} 
+                        onClick={() => handleAddCar(car)} 
+                        disabled={isAlreadyAdded}
+                      >
+                        {isAlreadyAdded ? "Already" : "ADD"}
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
       </Modal.Body>
     </Modal>
 

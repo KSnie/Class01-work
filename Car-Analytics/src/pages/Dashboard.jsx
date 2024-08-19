@@ -1,8 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Table from 'react-bootstrap/Table';
 import carData from '../data/cars.json';
 import './Dashboard.css';
-import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { Pie, Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ArcElement } from 'chart.js';
+import { FaSort } from "react-icons/fa";
+
+// Register Chart.js components
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement
+);
 
 const getBrandData = (cars, brands) => {
   const brandCounts = cars.reduce((acc, car) => {
@@ -11,10 +24,13 @@ const getBrandData = (cars, brands) => {
     return acc;
   }, {});
 
-  return Object.keys(brandCounts).map(brand => ({
-    name: brand,
-    value: brandCounts[brand],
-  }));
+  return {
+    labels: Object.keys(brandCounts),
+    datasets: [{
+      data: Object.values(brandCounts),
+      backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
+    }]
+  };
 };
 
 const getStackedBarData = (cars, brands) => {
@@ -25,10 +41,19 @@ const getStackedBarData = (cars, brands) => {
     return acc;
   }, {});
 
-  return Object.keys(modelCounts).map(brand => ({
-    name: brand,
-    ...modelCounts[brand],
+  const labels = Object.keys(modelCounts);
+  const models = [...new Set(cars.map(car => car.Model))];
+  const datasets = models.map((model, index) => ({
+    label: model,
+    data: labels.map(brand => modelCounts[brand]?.[model] || 0),
+    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'][index % 3],
+    stack: 'stack1'
   }));
+
+  return {
+    labels,
+    datasets
+  };
 };
 
 const sumPricesByBrandModel = (cars, brands) => {
@@ -39,21 +64,20 @@ const sumPricesByBrandModel = (cars, brands) => {
       acc[key] = { Brand: brand, Model: car.Model, Amount: 0, TotalPrice: 0 };
     }
     acc[key].Amount += 1;
-    
-    // Remove commas and convert to number
     const cleanedPrice = car.Prc.replace(/,/g, '');
-    acc[key].TotalPrice += parseInt(cleanedPrice, 10); // Use parseInt for integer conversion
-
+    acc[key].TotalPrice += parseInt(cleanedPrice, 10);
     return acc;
   }, {});
 
-  return Object.values(priceSums).sort((a, b) => a.Brand.localeCompare(b.Brand) || a.Model.localeCompare(b.Model));
+  return Object.values(priceSums);
 };
 
 const Dashboard = () => {
   const [cars, setCars] = useState([]);
   const [brands, setBrands] = useState({});
   const [carCounts, setCarCounts] = useState({});
+  const [sortConfigModels, setSortConfigModels] = useState({ key: 'Amount', direction: 'asc' });
+  const [sortConfigCars, setSortConfigCars] = useState({ key: 'Prc', direction: 'asc' });
 
   useEffect(() => {
     setCars(carData.Cars);
@@ -95,61 +119,124 @@ const Dashboard = () => {
 
   // Data for Pie Chart
   const pieChartData = getBrandData(cars, brands);
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   // Data for Stacked Bar Chart
   const stackedBarData = getStackedBarData(cars, brands);
-  const uniqueModels = [...new Set(cars.map(car => car.Model))];
 
-  // Aggregated data for the table
+  // Aggregated data for the ALL-Models table
   const aggregatedData = sumPricesByBrandModel(cars, brands);
+
+  // Sorting function for ALL-Models
+  const sortedAggregatedData = useMemo(() => {
+    const sortedData = [...aggregatedData];
+    sortedData.sort((a, b) => {
+      if (a[sortConfigModels.key] < b[sortConfigModels.key]) {
+        return sortConfigModels.direction === 'asc' ? -1 : 1;
+      }
+      if (a[sortConfigModels.key] > b[sortConfigModels.key]) {
+        return sortConfigModels.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+    return sortedData;
+  }, [aggregatedData, sortConfigModels]);
+
+  const requestSortModels = (key) => {
+    let direction = 'asc';
+    if (sortConfigModels.key === key && sortConfigModels.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfigModels({ key, direction });
+  };
+
+  // Sorting function for CAR-LIST
+  const sortedCars = useMemo(() => {
+    const sortedData = [...cars];
+    sortedData.sort((a, b) => {
+      const priceA = parseInt(a.Prc.replace(/,/g, ''), 10);
+      const priceB = parseInt(b.Prc.replace(/,/g, ''), 10);
+      if (priceA < priceB) {
+        return sortConfigCars.direction === 'asc' ? -1 : 1;
+      }
+      if (priceA > priceB) {
+        return sortConfigCars.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+    return sortedData;
+  }, [cars, sortConfigCars]);
+
+  const requestSortCars = (key) => {
+    let direction = 'asc';
+    if (sortConfigCars.key === key && sortConfigCars.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfigCars({ key, direction });
+  };
 
   return (
     <>
       <div className="table-container">
         <h1 className='table-Top-text'>Chart</h1>
         <div className="chart-container">
-          <div style={{ width: '100%', height: '500px' }}>
-            <PieChart width={800} height={500}>
-              <Pie
-                data={pieChartData}
-                cx="55%"
-                cy="50%"
-                labelLine={true}
-                label={({ name }) => name}
-                outerRadius={150}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {pieChartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </div>
-
-          <div style={{ width: '100%', height: '500px' }}>
-            <BarChart
-              width={800}
-              height={500}
-              data={stackedBarData}
-              margin={{
-                top: 50,
-                right: 30,
-                left: 10,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              {uniqueModels.map((model, index) => (
-                <Bar key={model} dataKey={model} stackId="a" fill={COLORS[index % COLORS.length]} />
-              ))}
-            </BarChart>
-          </div>
+          <Pie
+            data={pieChartData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (tooltipItem) => {
+                      const label = tooltipItem.label || '';
+                      const value = tooltipItem.raw || 0;
+                      return `${label}: ${value}`;
+                    }
+                  }
+                }
+              }
+            }}
+          />
+        </div>
+        <div className="chart-container2">
+          <Bar
+            data={stackedBarData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (tooltipItem) => {
+                      const label = tooltipItem.dataset.label || '';
+                      const value = tooltipItem.raw || 0;
+                      return `${label}: ${value}`;
+                    }
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  stacked: true,
+                  title: {
+                    display: true,
+                    text: 'Brand'
+                  }
+                },
+                y: {
+                  stacked: true,
+                  title: {
+                    display: true,
+                    text: 'Count'
+                  }
+                }
+              }
+            }}
+          />
         </div>
       </div>
 
@@ -161,17 +248,27 @@ const Dashboard = () => {
               <tr>
                 <th>Brand</th>
                 <th>Model</th>
-                <th>Amount</th>
-                <th>Total Price (Baht)</th>
+                <th>
+                  Amount
+                  <button className = "Sort-btn" onClick={() => requestSortModels('Amount')}>
+                    <FaSort />
+                  </button>
+                </th>
+                <th>
+                  Total Price (Baht)
+                  <button className = "Sort-btn" onClick={() => requestSortModels('TotalPrice')}>
+                    <FaSort />
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody>
-              {aggregatedData.map((data, index) => (
+              {sortedAggregatedData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.Brand}</td>
                   <td>{data.Model}</td>
                   <td>{data.Amount}</td>
-                  <td>{data.TotalPrice.toLocaleString()}</td> {/* Format with commas */}
+                  <td>{data.TotalPrice.toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
@@ -189,11 +286,16 @@ const Dashboard = () => {
                 <th>Brand</th>
                 <th>Model</th>
                 <th>Name</th>
-                <th>Price In Baht</th>
+                <th>
+                  Price In Baht
+                  <button className = "Sort-btn" onClick={() => requestSortCars('Prc')}>
+                    <FaSort />
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody>
-              {cars.map(car => (
+              {sortedCars.map(car => (
                 <tr key={car.Cid}>
                   <td>{car.Cid}</td>
                   <td>{brands[car.MkID] || 'Unknown'}</td>
