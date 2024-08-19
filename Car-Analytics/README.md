@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/36f69e73-12b7-49e3-bc4c-7801f52eca55" alt="screenshot">
+  <img src="https://github.com/user-attachments/assets/97633ad0-e424-46a5-a16e-2561252fa91e" alt="screenshot">
 </p>
 
 ## Key Features
